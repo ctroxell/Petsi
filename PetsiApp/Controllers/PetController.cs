@@ -18,6 +18,7 @@ namespace PetsiApp.Controllers
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
         private ApplicationDbContext context;
+        private Task<ApplicationUser> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
         public PetController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             this.roleManager = roleManager;
@@ -42,31 +43,17 @@ namespace PetsiApp.Controllers
 
             if (ModelState.IsValid)
             {
-
-                var claimsIdentity = User.Identity as ClaimsIdentity;
-                if (claimsIdentity != null)
+                var currentUser = await GetCurrentUserAsync();
+                Pet newPet = new Pet
                 {
-                    // the principal identity is a claims identity.
-                    // now we need to find the NameIdentifier claim
-                    var userIdClaim = claimsIdentity.Claims
-                        .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                    if (userIdClaim != null)
-                    {
-                        Pet newPet = new Pet
-                        {
-                            Name = model.Name,
-                            Gender = model.Gender,
-                            Species = model.Species,
-                            UserId = model.UserId
-                        };
-                        var userIdValue = userIdClaim.Value;
-                        newPet.UserId = userIdValue;
-                        context.Pets.Add(newPet);
-                        context.SaveChanges();
-                        return View("Index");
-                    }
-                }
+                    Name = model.Name,
+                    Gender = model.Gender,
+                    Species = model.Species,
+                };
+                newPet.UserId = currentUser.Id;
+                context.Pets.Add(newPet);
+                context.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View("AddPet");
         }
