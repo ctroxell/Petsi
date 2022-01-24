@@ -1,0 +1,38 @@
+﻿@using PetsiApp.ViewModels
+@model CreatePetViewModel
+@{
+    ViewData["Title"] = "Add A New Pet";
+}
+
+<h1>Add A New Pet</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender">Name</label>
+                <select asp-for="Gender" class="form-control">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Species">Species</label>
+                <select asp-for="Species" class="form-control">
+                    <option value="Cat">Cat</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" 
+            asp-controller="Pet" asp-action="CreatePet">Add Pet</button>
+        </form>
+    </div>
+</div>
+

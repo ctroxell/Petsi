@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetsiApp.Data;
 
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220124001507_editingRoles")]
+    partial class editingRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,10 +80,6 @@ namespace PetsiApp.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
                     b.Property<string>("Email")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
@@ -132,8 +130,6 @@ namespace PetsiApp.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -217,45 +213,6 @@ namespace PetsiApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("PetsiApp.Models.Pet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Gender")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Species")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pets");
-                });
-
-            modelBuilder.Entity("PetsiApp.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Descriminator")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

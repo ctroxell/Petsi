@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetsiApp.Data;
 
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220124031715_PetAndAppUserTables")]
+    partial class PetAndAppUserTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,8 +236,8 @@ namespace PetsiApp.Migrations
                     b.Property<string>("Species")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -245,9 +247,6 @@ namespace PetsiApp.Migrations
             modelBuilder.Entity("PetsiApp.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Descriminator")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("PetId")
                         .HasColumnType("int");
