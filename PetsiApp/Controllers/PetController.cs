@@ -29,14 +29,12 @@ namespace PetsiApp.Controllers
         {
             return View();
         }
+        [Authorize]
         public IActionResult AddPet()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            return View("Index");
+            return View();
         }
+    
 
         [HttpGet]
         public async Task<IActionResult> CreatePet(CreatePetViewModel model)
@@ -70,7 +68,7 @@ namespace PetsiApp.Controllers
                     }
                 }
             }
-            return View();
+            return View("AddPet");
         }
     }
 }

@@ -3,9 +3,9 @@ using PetsiApp.Data;
 
 namespace PetsiApp.Models
 {
-    public class Parent : IdentityUser
+    public class Parent : ApplicationUser
     {
         public string ChildUserId { get; set; }
-        public IdentityUser ChildUser { get; set; }
+        public ApplicationUser ChildUser { get; set; }
     }
 }

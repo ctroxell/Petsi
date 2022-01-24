@@ -13,7 +13,7 @@ namespace PetsiApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }
-            public DbSet<IdentityUser> ApplicationUsers { get; set; }
+            public DbSet<ApplicationUser> ApplicationUsers { get; set; }
             public DbSet<Pet> Pets { get; set; }
 
     }
