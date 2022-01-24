@@ -29,51 +29,48 @@ namespace PetsiApp.Controllers
         {
             return View();
         }
-        //public IActionResult AddPet()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return View();
-        //    }
-        //    return View("Index");
-        //}
+        public IActionResult AddPet()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            return View("Index");
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> CreatePet(CreatePetViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var userId = await userManager.GetUserIdAsync()
-        //    }
-        //    //if (ModelState.IsValid)
-        //    //{
+        [HttpGet]
+        public async Task<IActionResult> CreatePet(CreatePetViewModel model)
+        {
 
-        //    //    var claimsIdentity = User.Identity as ClaimsIdentity;
-        //    //    if (claimsIdentity != null)
-        //    //    {
-        //    //        // the principal identity is a claims identity.
-        //    //        // now we need to find the NameIdentifier claim
-        //    //        var userIdClaim = claimsIdentity.Claims
-        //    //            .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            if (ModelState.IsValid)
+            {
 
-        //    //        if (userIdClaim != null)
-        //    //        {
-        //    //            Pet newPet = new Pet
-        //    //            {
-        //    //                Name = model.Name,
-        //    //                Gender = model.Gender,
-        //    //                Species = model.Species,
-        //    //                UserId = model.UserId
-        //    //            };
-        //    //            var userIdValue = userIdClaim.Value;
-        //    //            newPet.UserId = userIdValue;
-        //    //            context.Pets.Add(newPet);
-        //    //            context.SaveChanges();
-        //    //            return View("Index");
-        //    //        }
-        //    //    }
-        //    //}
-        //    //return View();
-        //}
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                if (claimsIdentity != null)
+                {
+                    // the principal identity is a claims identity.
+                    // now we need to find the NameIdentifier claim
+                    var userIdClaim = claimsIdentity.Claims
+                        .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+                    if (userIdClaim != null)
+                    {
+                        Pet newPet = new Pet
+                        {
+                            Name = model.Name,
+                            Gender = model.Gender,
+                            Species = model.Species,
+                            UserId = model.UserId
+                        };
+                        var userIdValue = userIdClaim.Value;
+                        newPet.UserId = userIdValue;
+                        context.Pets.Add(newPet);
+                        context.SaveChanges();
+                        return View("Index");
+                    }
+                }
+            }
+            return View();
+        }
     }
 }

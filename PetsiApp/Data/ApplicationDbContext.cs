@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PetsiApp.Models;
 using System;
@@ -12,7 +13,7 @@ namespace PetsiApp.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }
-            public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+            public DbSet<IdentityUser> ApplicationUsers { get; set; }
             public DbSet<Pet> Pets { get; set; }
 
     }
