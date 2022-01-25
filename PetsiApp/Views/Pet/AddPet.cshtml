@@ -1,5 +1,6 @@
 ﻿@using PetsiApp.ViewModels
 @model CreatePetViewModel
+
 @{
     ViewData["Title"] = "Add A New Pet";
 }
@@ -8,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" asp-controller="Pet" asp-action="CreatePet">
             
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -30,7 +31,7 @@
                     <option value="Cat">Cat</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" asp-route-id="Model" asp-controller="Pet" asp-action="CreatePet">Add Pet</button>
+            <button type="submit" class="btn btn-primary" >Add Pet</button>
         </form>
     </div>
 </div>

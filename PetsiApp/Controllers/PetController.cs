@@ -37,7 +37,7 @@ namespace PetsiApp.Controllers
         }
     
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> CreatePet(CreatePetViewModel model)
         {
 
@@ -53,7 +53,7 @@ namespace PetsiApp.Controllers
                 newPet.UserId = currentUser.Id;
                 context.Pets.Add(newPet);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return View("Index");
             }
             return View("AddPet");
         }
