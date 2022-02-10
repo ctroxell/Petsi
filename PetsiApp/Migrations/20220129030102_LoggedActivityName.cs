@@ -2,22 +2,21 @@
 
 namespace PetsiApp.Migrations
 {
-    public partial class CareActivity : Migration
+    public partial class LoggedActivityName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "PetXp",
-                table: "Pets",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.AddColumn<string>(
+                name: "ActivityName",
+                table: "LoggedActivities",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PetXp",
-                table: "Pets");
+                name: "ActivityName",
+                table: "LoggedActivities");
         }
     }
 }

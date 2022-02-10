@@ -2,21 +2,22 @@
 
 namespace PetsiApp.Migrations
 {
-    public partial class MigratingParentUser : Migration
+    public partial class PetIcons : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ChildUserId",
-                table: "AspNetUsers",
-                nullable: true);
+            migrationBuilder.AddColumn<int>(
+                name: "Icon",
+                table: "Pets",
+                nullable: false,
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ChildUserId",
-                table: "AspNetUsers");
+                name: "Icon",
+                table: "Pets");
         }
     }
 }

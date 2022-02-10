@@ -1,4 +1,6 @@
-﻿namespace PetsiApp.Models
+﻿using System.Collections.Generic;
+
+namespace PetsiApp.Models
 {
     public class Pet
     {
@@ -6,7 +8,10 @@
         public string Name { get; set; }
         public string Gender { get; set; }
         public string Species { get; set; }
+        public ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        public int PetXp { get; set; } = 0;
+        public int PetXp = 0;
+        public int Icon { get; set; }
+        
     }
 }

@@ -9,8 +9,8 @@ using PetsiApp.Data;
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220125164810_PetXpField")]
-    partial class PetXpField
+    [Migration("20220129040520_NewProperties")]
+    partial class NewProperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,56 @@ namespace PetsiApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PetsiApp.Models.CareActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("XpValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CareActivities");
+                });
+
+            modelBuilder.Entity("PetsiApp.Models.LoggedActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActivityName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("CareActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("LogTime")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CareActivityId");
+
+                    b.HasIndex("PetId");
+
+                    b.ToTable("LoggedActivities");
+                });
+
             modelBuilder.Entity("PetsiApp.Models.Pet", b =>
                 {
                     b.Property<int>("Id")
@@ -239,7 +289,12 @@ namespace PetsiApp.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Pets");
                 });
@@ -248,8 +303,8 @@ namespace PetsiApp.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("PetId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("PetId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RoleId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -306,6 +361,28 @@ namespace PetsiApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PetsiApp.Models.LoggedActivity", b =>
+                {
+                    b.HasOne("PetsiApp.Models.CareActivity", "CareActivity")
+                        .WithMany()
+                        .HasForeignKey("CareActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PetsiApp.Models.Pet", "Pet")
+                        .WithMany()
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PetsiApp.Models.Pet", b =>
+                {
+                    b.HasOne("PetsiApp.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

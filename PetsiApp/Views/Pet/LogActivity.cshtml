@@ -1,0 +1,75 @@
+﻿@using PetsiApp.Data
+@using PetsiApp.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model LogActivityViewModel
+@{
+    ViewData["Title"] = "Add A New Pet";
+}
+<style>
+    .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+}
+.styled-table thead tr {
+    background-color:mediumblue;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid lightblue;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: white;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid blue;
+}
+</style>
+<h1>Log Pet Care Activity</h1>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Activity </th>
+            <th>Tips </th>
+            <th>Xp Value </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(CareActivity careActivity in Model.CareActivities)
+        {
+            <tr>
+                <td>@careActivity.Name </td>
+                <td>@careActivity.Description </td>
+                <td>@careActivity.XpValue </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Pet" asp-action="LogActivity">
+            <label asp-for="CareActivityName">Select Activity 
+            <select asp-for="CareActivityId">          
+            @foreach(CareActivity careActivity in Model.CareActivities)
+            {
+                <option value="@careActivity.Id">@careActivity.Name</option>
+            }
+            </select>
+            </label>
+            <label asp-for="Comments">Add Comment
+            <input asp-for="Comments" type="text" />
+            </label>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

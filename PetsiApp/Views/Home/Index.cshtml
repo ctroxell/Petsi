@@ -4,14 +4,15 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <br />
+    <a href="/Pet" class="btn btn-primary">Enter Petsi Dashboard</a>
     @if (User.IsInRole("Parent"))
     {
-
-    <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <button asp-action="/Parent/AddChild">Add Child</button>
-    </div>
-
+        <button asp-action="/Parent/AddChild">Add Child</button>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <button asp-action="/Administration/ListRoles">View Roles</button>
     }
 </div>
 

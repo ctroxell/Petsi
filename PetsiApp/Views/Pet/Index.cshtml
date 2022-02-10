@@ -1,5 +1,75 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model PetIndexViewModel
+@using PetsiApp.Controllers
+@using PetsiApp.ViewModels
 @{
+    ViewData["Title"] = "Petsi Dashboard";
 }
+<style>
+    .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+}
+.styled-table thead tr {
+    background-color:skyblue;
+    color: #ffffff;
+    text-align: left;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid lightskyblue;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: white;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid skyblue;
+}
+
+.pet {
+  width: 25%;
+  float: left;
+}
+.main {
+  width: 75%;
+  float: left;
+}
+</style>
+
+<div class="pet">
+    <h3>@Model.UserPet.Name</h3>
+    <img />
+</div>
+
+
+<div class="main">
+<div class="text-center">
+    <h1>Petsi Dashboard</h1>
+    <br />
+    <a asp-controller="Pet" asp-action="LogActivity" class="btn btn-primary">Log Activity</a>
+    <a asp-controller="Pet" asp-action="ViewLogs" class="btn btn-primary">View All Logs</a>
+</div>
+
+
+
+@foreach (LoggedActivity loggedActivity in Model.LoggedActivities)
+{
+    <div class="card mb-3" styles="width:auto">
+        <div class="card-header">
+            <h4>@loggedActivity.ActivityName</h4>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">@loggedActivity.Comments</h3>
+        </div>
+        <div class="card-footer">
+            <h5>@loggedActivity.LogTime</h5>
+        </div>
+    </div>
+}
+</div>

@@ -1,0 +1,50 @@
+﻿@model List<LoggedActivity>
+@using PetsiApp.Controllers
+@{
+    ViewData["Title"] = "Petsi Dashboard";
+}
+<style>
+.styled-table {
+    min-width: 800px;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    column-gap: 10px;
+    row-gap: 20px;
+}
+.styled-table thead tr {
+    background-color:skyblue;
+    color: #ffffff;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid lightskyblue;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: white;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid skyblue;
+}
+</style>
+
+<div class="align-content-center">
+    <h1>Acitivity Logs</h1>
+    <table class="styled-table">
+        <tr>
+            <th>Activity</th>
+            <th>Date</th>
+            <th>Comments</th>
+        </tr>
+@foreach (LoggedActivity loggedActivity in Model)
+{
+        <tr>
+            <td>@loggedActivity.ActivityName</td>
+            <td>@loggedActivity.LogTime</td>
+            <td>@loggedActivity.Comments</td>
+        </tr>
+}
+    </table>
+</div>
