@@ -12,10 +12,10 @@ namespace PetsiApp.Models
         public int PetId { get; set; }
         public Pet Pet { get; set; }
         public string Comments { get; set; }
-        public string LogTime { get; set; }
+        public DateTime LogTime { get; set; }
         public LoggedActivity()
         {
-            LogTime = DateTime.UtcNow.ToString();
+            LogTime = DateTime.Now;
         }
         
     }

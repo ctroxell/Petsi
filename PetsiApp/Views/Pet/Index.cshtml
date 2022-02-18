@@ -28,7 +28,7 @@
     background-color: white;
 }
 
-.styled-table tbody tr:last-of-type {
+color-table tbody tr:last-of-type {
     border-bottom: 2px solid skyblue;
 }
 
@@ -36,40 +36,63 @@
   width: 25%;
   float: left;
 }
+
 .main {
   width: 75%;
   float: left;
 }
 </style>
 
-<div class="pet">
-    <h3>@Model.UserPet.Name</h3>
-    <img />
-</div>
+@if (@Model.UserPet != null)
+{
+    @if(@Model.UserPet.Gender == "Male")
+    {
+        <div class="pet">
+            <h3 class="text-center" style="background-color: lightskyblue">@Model.UserPet.Name</h3>
+            <p>*pet icon here*</p>
+            <p>XP: @Model.UserPet.PetXp</p>
+            <div class="text-center"> 
+                <a asp-controller="Pet" asp-action="LogActivity" class="btn" style="border-color: lightblue">Log Activity</a>
+                <a asp-controller="Pet" asp-action="ViewLogs" class="btn" style="border-color: lightblue">View My Logs</a>
+            </div>
+        </div>
+    }
+    @if(@Model.UserPet.Gender == "Female")
+    {
+        <div class="pet">
+            <h3 class="text-center" style="background-color: lightpink">@Model.UserPet.Name</h3>
+            <p>*pet icon here*</p>
+            <p>XP: @Model.UserPet.PetXp</p>
+            <div class="text-center">            
+                <a asp-controller="Pet" asp-action="LogActivity" class="btn" style="border-color: lightpink">Log Activity</a>
+                <a asp-controller="Pet" asp-action="ViewLogs" class="btn" style="border-color: lightpink">View My Logs</a>
+            </div>
+
+        </div>
+    }
+}
+
+
 
 
 <div class="main">
-<div class="text-center">
-    <h1>Petsi Dashboard</h1>
-    <br />
-    <a asp-controller="Pet" asp-action="LogActivity" class="btn btn-primary">Log Activity</a>
-    <a asp-controller="Pet" asp-action="ViewLogs" class="btn btn-primary">View All Logs</a>
-</div>
-
-
-
-@foreach (LoggedActivity loggedActivity in Model.LoggedActivities)
+<h1 class="text-center">Recent Logs</h1>
+    @foreach (LoggedActivity loggedActivity in Model.LoggedActivities)
 {
-    <div class="card mb-3" styles="width:auto">
-        <div class="card-header">
-            <h4>@loggedActivity.ActivityName</h4>
+    if (loggedActivity.LogTime.Date == DateTime.Today || Model.LoggedActivities.IndexOf(loggedActivity) > Model.LoggedActivities.Count() - 5)
+    {
+        <div class="card mb-3" styles="width:auto">
+            <div class="card-header">
+                <h4>@loggedActivity.ActivityName</h4>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">@loggedActivity.Comments</h3>
+            </div>
+            <div class="card-footer">
+                <h5>@loggedActivity.LogTime.ToString("g")</h5>
+            </div>
         </div>
-        <div class="card-body">
-            <h3 class="card-title">@loggedActivity.Comments</h3>
-        </div>
-        <div class="card-footer">
-            <h5>@loggedActivity.LogTime</h5>
-        </div>
-    </div>
+    }
+
 }
 </div>

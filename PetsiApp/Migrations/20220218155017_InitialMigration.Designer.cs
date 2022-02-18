@@ -9,8 +9,8 @@ using PetsiApp.Data;
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220210172025_PetIcons")]
-    partial class PetIcons
+    [Migration("20220218155017_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -256,8 +256,8 @@ namespace PetsiApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("LogTime")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<DateTime>("LogTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("PetId")
                         .HasColumnType("int");

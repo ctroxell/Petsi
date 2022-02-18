@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace PetsiApp.Controllers
 {
-    [Authorize]
+    [Authorize] //user must be logged in to access this page
     public class PetController : Controller
     {
         private RoleManager<IdentityRole> roleManager;
@@ -31,8 +31,6 @@ namespace PetsiApp.Controllers
 
         }
 
-        //consider making view model
-        //consider setting care activity name in logged activity
         public async Task<IActionResult> Index()
         {
             var currentUser = await GetCurrentUserAsync();
@@ -43,10 +41,12 @@ namespace PetsiApp.Controllers
                 UserPet = userPet,
                 LoggedActivities = petLoggedActivities
             };
+            //if the user has a pet, this^ info will be sent to the dashboard
             if (model.UserPet != null)
             {
                 return View("Index", model);
             }
+            //if the user does NOT have a pet, they have to make one
             return View("AddPet");
         }
 
@@ -72,8 +72,10 @@ namespace PetsiApp.Controllers
                     UserId = currentUser.Id,
                     Icon = model.IconSelection,
                 };
+                //adding the new pet into the database
                 context.Pets.Add(newPet);
                 context.SaveChanges();
+                //assigning that pet to the user
                 currentUser.PetId = newPet.Id;
                 context.SaveChanges();
                 return View("Index");
@@ -103,14 +105,15 @@ namespace PetsiApp.Controllers
             CareActivity careActivity = context.CareActivities.Find(model.CareActivityId);
             LoggedActivity newActivity = new LoggedActivity
             {
-                //set CA name
                 CareActivity = careActivity,
                 ActivityName = careActivity.Name,
                 Comments = model.Comments,
                 Pet = userPet,
             };
             userPet.PetXp = userPet.PetXp + careActivity.XpValue;
+            //updating the pet's XP accordingly
             context.LoggedActivities.Add(newActivity);
+            //adding the activity log to the database
             context.SaveChanges();
 
             return Redirect("Index");
@@ -121,6 +124,7 @@ namespace PetsiApp.Controllers
             var currentUser = await GetCurrentUserAsync();
             var userPet = context.Pets.Where(pet => pet.Id == currentUser.PetId);
             var petLoggedActivities = context.LoggedActivities.Where(activity => activity.PetId == currentUser.PetId).ToList();
+            //retrieving a list of activity logs assigned to the current user and sending it to the view
             return View("Logs", petLoggedActivities);
         }
 

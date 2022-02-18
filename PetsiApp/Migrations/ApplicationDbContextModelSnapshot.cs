@@ -254,8 +254,8 @@ namespace PetsiApp.Migrations
                     b.Property<string>("Comments")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("LogTime")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<DateTime>("LogTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("PetId")
                         .HasColumnType("int");

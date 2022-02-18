@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PetsiApp.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -182,7 +182,7 @@ namespace PetsiApp.Migrations
                     Species = table.Column<string>(nullable: true),
                     UserId1 = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    PetXp = table.Column<int>(nullable: false)
+                    Icon = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,9 +202,10 @@ namespace PetsiApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CareActivityId = table.Column<int>(nullable: false),
+                    ActivityName = table.Column<string>(nullable: true),
                     PetId = table.Column<int>(nullable: false),
                     Comments = table.Column<string>(nullable: true),
-                    LogTime = table.Column<string>(nullable: true)
+                    LogTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
