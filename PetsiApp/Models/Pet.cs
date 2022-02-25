@@ -10,7 +10,7 @@ namespace PetsiApp.Models
         public string Species { get; set; }
         public ApplicationUser User { get; set; }
         public string UserId { get; set; }
-        public int PetXp = 0;
+        public int PetXp {get; set; }
         public int Icon { get; set; }
         
     }

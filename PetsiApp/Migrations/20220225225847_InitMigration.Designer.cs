@@ -9,8 +9,8 @@ using PetsiApp.Data;
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220218155017_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220225225847_InitMigration")]
+    partial class InitMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

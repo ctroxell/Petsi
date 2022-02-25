@@ -71,6 +71,7 @@ namespace PetsiApp.Controllers
                     User = currentUser,
                     UserId = currentUser.Id,
                     Icon = model.IconSelection,
+                    PetXp = 0,
                 };
                 //adding the new pet into the database
                 context.Pets.Add(newPet);
@@ -78,7 +79,12 @@ namespace PetsiApp.Controllers
                 //assigning that pet to the user
                 currentUser.PetId = newPet.Id;
                 context.SaveChanges();
-                return View("Index");
+                PetIndexViewModel indexModel = new PetIndexViewModel
+                {
+                    UserPet = newPet,
+                    LoggedActivities = new List<LoggedActivity>(),
+                };
+                return View("Index", indexModel);
             }
             return View("AddPet");
         }
@@ -110,7 +116,7 @@ namespace PetsiApp.Controllers
                 Comments = model.Comments,
                 Pet = userPet,
             };
-            userPet.PetXp = userPet.PetXp + careActivity.XpValue;
+            context.Pets.Find(currentUser.PetId).PetXp += careActivity.XpValue;
             //updating the pet's XP accordingly
             context.LoggedActivities.Add(newActivity);
             //adding the activity log to the database
