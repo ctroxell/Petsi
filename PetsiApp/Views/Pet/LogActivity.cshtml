@@ -8,21 +8,21 @@
     ViewData["Title"] = "Add A New Pet";
 }
 <style>
-    .styled-table {
+.styled-table {
+    min-width: 800px;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
+    column-gap: 10px;
+    row-gap: 20px;
 }
 .styled-table thead tr {
-    background-color: darkslategray;
+    background-color:skyblue;
     color: #ffffff;
-    text-align: left;
-    padding: 5px;
 }
 .styled-table tbody tr {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightskyblue;
 }
 
 .styled-table tbody tr:nth-of-type(even) {
@@ -30,7 +30,7 @@
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid lightgray;
+    border-bottom: 2px solid skyblue;
 }
 </style>
 <h1>Log Pet Care Activity</h1>
