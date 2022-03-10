@@ -9,8 +9,8 @@ using PetsiApp.Data;
 namespace PetsiApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220225231542_PetXp")]
-    partial class PetXp
+    [Migration("20220228133956_Achievement")]
+    partial class Achievement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -277,6 +277,9 @@ namespace PetsiApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("Achievements")
+                        .HasColumnType("int");
+
                     b.Property<string>("Gender")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -285,6 +288,9 @@ namespace PetsiApp.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("PetXp")
+                        .HasColumnType("int");
 
                     b.Property<string>("Species")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

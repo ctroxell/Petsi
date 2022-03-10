@@ -52,9 +52,49 @@ color-table tbody tr:last-of-type {
 
 .activity {
     width: 250px;
-    margin: 8px
+    margin: 8px;
 }
+
+img {
+    max-width: 150px;
+}
+
+#achi1 {
+    visibility: hidden;
+}
+#achi2 {
+    visibility: hidden;
+}
+#achi3 {
+    visibility: hidden;
+}
+
 </style>
+
+@if (@Model.UserPet.Achievements == 1)
+{
+    <style>
+        #achi1 {
+            visibility: visible;
+        }
+    </style>
+}
+@if (@Model.UserPet.Achievements == 2)
+{
+    <style>
+        #achi2 {
+            visibility: visible;
+        }
+    </style>
+}
+@if (@Model.UserPet.Achievements == 3)
+{
+    <style>
+        #achi3 {
+            visibility: visible;
+        }
+    </style>
+}
 
 @if (@Model.UserPet != null)
 {
@@ -62,11 +102,15 @@ color-table tbody tr:last-of-type {
     {
         <div class="pet">
             <h3 class="text-center" style="background-color: lightskyblue">@Model.UserPet.Name</h3>
-            <p>*pet icon here*</p>
-            <p>XP: @Model.UserPet.PetXp</p>
-            <div class="text-center"> 
+            
+            <div class="text-center">
+                <img src="~/icons/4.jpg"/>
+                <p>XP: @Model.UserPet.PetXp</p>
                 <a asp-controller="Pet" asp-action="LogActivity" class="btn" style="border-color: lightblue">Log Activity</a>
                 <a asp-controller="Pet" asp-action="Logs" class="btn" style="border-color: lightblue">View My Logs</a>
+                <img id="achi1" src="~/achi/achi1.png" /> <br>
+                <img id="achi2" src="~/achi/achi2.png" /> <br>
+                <img id="achi3" src="~/achi/achi3.png" />
             </div>
         </div>
     }
@@ -74,11 +118,15 @@ color-table tbody tr:last-of-type {
     {
         <div class="pet">
             <h3 class="text-center" style="background-color: lightpink">@Model.UserPet.Name</h3>
-            <p>*pet icon here*</p>
-            <p>XP: @Model.UserPet.PetXp</p>
-            <div class="text-center">            
+            
+            <div class="text-center"> 
+                <img src=~/icons/1.jpg>
+                <p>XP: @Model.UserPet.PetXp</p>
                 <a asp-controller="Pet" asp-action="LogActivity" class="btn" style="border-color: lightpink">Log Activity</a>
                 <a asp-controller="Pet" asp-action="Logs" class="btn" style="border-color: lightpink">View My Logs</a>
+                <img id="achi1" src="~/achi/achi1.png" /> <br>
+                <img id="achi2" src="~/achi/achi2.png" /> <br>
+                <img id="achi3" src="~/achi/achi3.png" />
             </div>
 
         </div>
@@ -94,7 +142,7 @@ color-table tbody tr:last-of-type {
 <div class="container">
     @foreach (LoggedActivity loggedActivity in Model.LoggedActivities)
 {
-    if (loggedActivity.LogTime.Date == DateTime.Today || Model.LoggedActivities.IndexOf(loggedActivity) > Model.LoggedActivities.Count() - 5)
+    if (loggedActivity.LogTime.Date == DateTime.Today || Model.LoggedActivities.IndexOf(loggedActivity) > Model.LoggedActivities.Count() - 9)
     {
         <div class="card mb-3 activity">
             <div class="card-header">

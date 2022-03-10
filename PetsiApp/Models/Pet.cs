@@ -12,6 +12,7 @@ namespace PetsiApp.Models
         public string UserId { get; set; }
         public int PetXp {get; set; }
         public int Icon { get; set; }
+        public int Achievements { get; set; }
         
     }
 }

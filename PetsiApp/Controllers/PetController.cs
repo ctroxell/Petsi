@@ -121,7 +121,36 @@ namespace PetsiApp.Controllers
             context.LoggedActivities.Add(newActivity);
             //adding the activity log to the database
             context.SaveChanges();
+            PetIndexViewModel achiCheck = new PetIndexViewModel
+            {
+                UserPet = userPet,
+                LoggedActivities = context.LoggedActivities.Where(activity => activity.PetId == currentUser.PetId).ToList()
+            };
+            // now check for achievements
+            //earn achi 3
+            if (achiCheck.UserPet.PetXp >= 100 && achiCheck.UserPet.Achievements < 3)
+            {
+                userPet.Achievements = 3;
+                context.SaveChanges();
+                return RedirectToAction("ThirdAchi", "Achievement");
 
+            }
+
+            //earn achi 2
+            if (achiCheck.UserPet.PetXp >= 50 && achiCheck.UserPet.Achievements < 2)
+            {
+                userPet.Achievements = 2;
+                context.SaveChanges();
+                return RedirectToAction("SecondAchi", "Achievement");
+            }
+
+            //earn achi 1
+            if (achiCheck.LoggedActivities.Count == 1)
+            {
+                userPet.Achievements = 1;
+                context.SaveChanges();
+                return RedirectToAction("FirstAchi", "Achievement");
+            }
             return Redirect("Index");
         }
 
